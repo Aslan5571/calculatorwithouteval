@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Calculator with Two Displays</title>
+        
+    </head>
+    <body>
+       
+            <input id="display" readonly>
+            <div class="buttons">
+                <button onclick="appendNumber(7)">7</button>
+                <button onclick="appendNumber(8)">8</button>
+                <button onclick="appendNumber(9)">9</button>
+                <button onclick="appendNumber('+')">+</button>
+                <button onclick="appendNumber(4)">4</button>
+                <button onclick="appendNumber(5)">5</button>
+                <button onclick="appendNumber(6)">6</button>
+                <button onclick="appendNumber('-')">-</button>
+                <button onclick="appendNumber(1)">1</button>
+                <button onclick="appendNumber(2)">2</button>
+                <button onclick="appendNumber(3)">3</button>
+                <button onclick="appendNumber('*')">×</button>
+                <button onclick="clearAll()">C</button>
+                <button onclick="appendNumber(0)">0</button>
+                <button onclick="calculate()">=</button>
+                <button onclick="appendNumber('/')">÷</button>
+            </div>
+        </div>
+        <script >
+   const display = document.getElementById('display');
+function clearAll(){
+      display.value = '';
+
+
+      }
+
+            
+
+
+function appendNumber(input){
+  display.value = display.value + input;
+  
+
+
+
+}
+      
+function calculate() {
+    const expression = display.value;
+
+    // Определяем доступные операторы
+    const operators = ['+', '-', '*', '/'];
+    let operator ;
+
+    // Ищем оператор в выражении
+    for (let i = 0; i < operators.length; i++) {
+        if (expression.includes(operators[i])) {
+            operator = operators[i];
+            break;
+        }
+    }
+
+    if (!operator) {
+        display.value = 'error'; // Если оператор не найден
+        return;
+    }
+
+    // Разделяем выражение по найденному оператору
+    const [num1 , num2] = expression.split(operator).map(Number);
+    
+
+
+    if (isNaN(num1) || isNaN(num2)) {
+        display.value = 'Ошибка'; // Если одно из значений не число
+        return;
+    }
+
+    // Выполняем вычисления в зависимости от оператора
+    let result = null;
+    switch (operator) {
+        case '+':
+            result = num1 + num2;
+            break;
+        case '-':
+            result = num1 - num2;
+            break;
+        case '*':
+            result = num1 * num2;
+            break;
+        case '/':
+            if (num2 === 0) {
+                display.value = 0; // Деление на ноль
+                return;
+            }
+            result = num1 / num2;
+            break;
+        default:
+            display.value = 'Ошибка'; // Неподдерживаемый оператор
+            return;
+    }
+
+    display.value = result; // Показываем результат
+}
+        </script>
+    </body>
+    </html>
+
+
+
+
+
+
+    
+    <script src="main.js"></script>
+</body>
+</html>
